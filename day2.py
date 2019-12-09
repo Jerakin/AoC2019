@@ -28,9 +28,6 @@ class Day2:
         self.opt_code[pos_3] = self.opt_code[pos_1] + self.opt_code[pos_2]
         self.position += 4
 
-    def calibrate(self, pos, value):
-        self.opt_code[pos] = value
-
     def run(self):
         try:
             while True:
@@ -52,13 +49,16 @@ class Day2:
     def __getitem__(self, index):
         return self.opt_code[index]
 
+    def __setitem__(self, index, value):
+        self.opt_code[index] = value
+
 
 def part1():
     with open(Path(__file__).parent / "day2.txt", "r") as f:
         input_program = f.read()
     p = Day2(input_program)
-    p.calibrate(1, 12)
-    p.calibrate(2, 2)
+    p[1] = 12
+    p[2] = 2
     p.run()
     return p.value
 
@@ -69,8 +69,8 @@ def part2():
             with open(Path(__file__).parent / "day2.txt", "r") as f:
                 input_program = f.read()
             p = Day2(input_program)
-            p.calibrate(1, noun)
-            p.calibrate(2, verb)
+            p[1] = noun
+            p[2] = verb
             p.run()
             if p.value == 19690720:
                 return p[1], p[2]
